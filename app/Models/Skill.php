@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Skill extends Model
 {
-    //
+    protected $guarded = [];
+
+    public function parent () {
+        return $this->belongsTo(self::class);
+    }
 }
