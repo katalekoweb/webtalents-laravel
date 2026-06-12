@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Vacancies\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -15,50 +16,39 @@ class VacanciesTable
     {
         return $table
             ->columns([
-                TextColumn::make('uuid')
-                    ->label('UUID')
+                TextColumn::make('title')->label(fn () => __("Title"))
                     ->searchable(),
-                TextColumn::make('creator_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('tenant_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('due_date')
+                TextColumn::make('due_date')->label(fn () => __("Due date"))
                     ->date()
                     ->sortable(),
-                TextColumn::make('country_id')
+                TextColumn::make('country.name')->label(__('Country'))
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('state_id')
+                TextColumn::make('state.name')->label(__('State'))->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('city_id')
+                TextColumn::make('city.name')->label(__('City'))->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
-                IconColumn::make('only_in_place')
+                IconColumn::make('only_in_place')->label(__('Allows candidate to move?'))
                     ->boolean(),
-                IconColumn::make('is_remote')
+                IconColumn::make('is_remote')->label(__('Is remote?'))
                     ->boolean(),
-                IconColumn::make('offer_visa')
+                IconColumn::make('offer_visa')->label(__('Offer visa?'))
                     ->boolean(),
-                IconColumn::make('is_published')
+                IconColumn::make('is_published')->label(__('Is published?'))
                     ->boolean(),
-                IconColumn::make('is_active')
+                IconColumn::make('is_active')->label(__('Is active?'))
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label(fn () => __("Created at"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label(fn () => __("Updated at"))
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -66,6 +56,7 @@ class VacanciesTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
