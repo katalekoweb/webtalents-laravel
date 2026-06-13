@@ -45,4 +45,10 @@ class Vacancy extends Model
     public function skills () {
         return $this->hasMany(VacancySkill::class);
     }
+
+    public function languages () {
+        return $this->hasMany(VacancyLanguage::class);
+    }
+
+
 }

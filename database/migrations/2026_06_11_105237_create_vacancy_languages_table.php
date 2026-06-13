@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vacancy_skills', function (Blueprint $table) {
+        Schema::create('vacancy_languages', function (Blueprint $table) {
             $table->id();
             $table->uuid()->nullable();
             $table->foreignId("creator_id")->nullable()->constrained("users")->nullOnDelete()->comment("From user table");
             $table->foreignId("tenant_id")->constrained()->cascadeOnDelete();
             $table->foreignId("vacancy_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("skill_id")->constrained()->cascadeOnDelete();
-            $table->integer("min_experience_years")->default(0);
+            $table->foreignId("language_id")->constrained()->cascadeOnDelete();
+            $table->enum("level", ['basic', 'intermediate', 'advanced', 'native'])->default('intermediate');
             $table->boolean("is_required")->default(false);
             $table->boolean("is_active")->default(true);
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vancacy_skills');
+        Schema::dropIfExists('vacancy_languages');
     }
 };

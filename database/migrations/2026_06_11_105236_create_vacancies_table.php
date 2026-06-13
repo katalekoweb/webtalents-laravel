@@ -23,7 +23,17 @@ return new class extends Migration
             $table->foreignId("country_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignId("state_id")->nullable()->constrained()->nullOnDelete();
             $table->foreignId("city_id")->nullable()->constrained()->nullOnDelete();
+            $table->decimal("min_salary", 15,2)->nullable();
+            $table->decimal("max_salary", 15,2)->nullable();
 
+            $table->boolean("is_age_relevant")->default(false);
+            $table->enum("priority", ['younger', 'older'])->default('younger');
+            $table->decimal("age_weight")->default(0);
+
+            $table->boolean("only_for_woman")->default(false);
+            $table->boolean("only_for_pwd")->default(false);
+            $table->boolean("receiving_applies")->default(true);
+            
             $table->boolean("only_in_place")->default(false);
             $table->boolean("is_remote")->default(false);
             $table->boolean("offer_visa")->default(false);

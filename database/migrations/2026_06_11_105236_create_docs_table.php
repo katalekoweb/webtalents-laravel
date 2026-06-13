@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vacancy_skills', function (Blueprint $table) {
+        Schema::create('docs', function (Blueprint $table) {
             $table->id();
             $table->uuid()->nullable();
             $table->foreignId("creator_id")->nullable()->constrained("users")->nullOnDelete()->comment("From user table");
             $table->foreignId("tenant_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("vacancy_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("skill_id")->constrained()->cascadeOnDelete();
-            $table->integer("min_experience_years")->default(0);
-            $table->boolean("is_required")->default(false);
+            $table->string("name");
             $table->boolean("is_active")->default(true);
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vancacy_skills');
+        Schema::dropIfExists('docs');
     }
 };

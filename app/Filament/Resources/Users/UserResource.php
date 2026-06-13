@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Override;
 use UnitEnum;
 
@@ -68,5 +69,13 @@ class UserResource extends Resource
             'create' => CreateUser::route('/create'),
             'edit' => EditUser::route('/{record}/edit'),
         ];
+    }
+
+    #[Override]
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->when(request()->user()?->type != 'admin', function ($query) {
+            $query->where('type', '!=', 'admin')->whereTenant(request()->user()?->tenant_id);
+        });
     }
 }

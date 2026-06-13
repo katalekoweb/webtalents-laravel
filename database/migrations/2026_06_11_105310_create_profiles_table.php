@@ -33,6 +33,11 @@ return new class extends Migration
             $table->string("lang")->default("pt");
             $table->integer("order")->default(1);
             $table->boolean("is_human")->default(true);
+
+            $table->decimal("min_salary")->default(0);
+            $table->boolean("iam_pwd")->default(false);
+            $table->boolean("only_remote")->default(false);
+
             $table->boolean("is_default")->default(false);
             $table->boolean("is_active")->default(true);
             $table->timestamps();
