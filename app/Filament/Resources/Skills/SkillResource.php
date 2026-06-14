@@ -69,4 +69,9 @@ class SkillResource extends Resource
             'edit' => EditSkill::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin']);
+    }
 }

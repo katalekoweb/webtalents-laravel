@@ -61,7 +61,8 @@ class TenantsTable
                 //
             ])
             ->recordActions([
-                Action::make("vinculation")->label(function ($record) {
+                Action::make("vinculation")
+                ->label(function ($record) {
                     $user = request()->user();
                     return $user->tenant_id != $record->id ? __('Vinculate') : __('Remove');
                 })->action(function ($record) {
@@ -69,10 +70,11 @@ class TenantsTable
                     $user->tenant_id = $user->tenant_id === $record->id ? null : $record->id;
                     $user->save();
                 })
+                ->visible(fn () => request()->user()->type == 'admin')
                 ->requiresConfirmation(),
                 ViewAction::make(),
                 EditAction::make(),
-                DeleteAction::make()
+                DeleteAction::make()->visible(fn () => request()->user()->type == 'admin')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

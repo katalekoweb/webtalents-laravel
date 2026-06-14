@@ -69,4 +69,9 @@ class LanguageResource extends Resource
             'edit' => EditLanguage::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin']);
+    }
 }

@@ -75,7 +75,7 @@ class UserResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->when(request()->user()?->type != 'admin', function ($query) {
-            $query->where('type', '!=', 'admin')->whereTenant(request()->user()?->tenant_id);
+            $query->where('type', '!=', 'admin')->whereTenantId(request()->user()?->tenant_id);
         });
     }
 }

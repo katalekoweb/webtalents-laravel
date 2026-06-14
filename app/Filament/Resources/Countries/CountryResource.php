@@ -69,4 +69,9 @@ class CountryResource extends Resource
             'edit' => EditCountry::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return request()->user()->type == "admin";
+    }
 }

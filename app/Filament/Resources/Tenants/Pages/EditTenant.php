@@ -15,7 +15,7 @@ class EditTenant extends EditRecord
     {
         return [
             ViewAction::make(),
-            DeleteAction::make(),
+            DeleteAction::make()->visible(fn () => request()->user()->type == 'admin'),
         ];
     }
 

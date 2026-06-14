@@ -17,7 +17,7 @@ class UserForm
 
         if (request()->user()->type !== 'admin') {
             unset($types['admin']);
-            unset($types['candidate']);
+            // unset($types['candidate']);
         }
 
         return $schema

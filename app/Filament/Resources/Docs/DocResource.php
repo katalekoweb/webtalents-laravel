@@ -69,4 +69,9 @@ class DocResource extends Resource
             'edit' => EditDoc::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin', 'manager']);
+    }
 }

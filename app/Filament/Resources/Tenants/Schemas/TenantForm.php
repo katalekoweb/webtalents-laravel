@@ -56,7 +56,7 @@ class TenantForm
                     TextInput::make('whatsapp')->label(__('Whatsapp')),
                     Textarea::make('about')->label(__('About'))
                         ->columnSpanFull(),
-                    Toggle::make('is_active')->label(__('Is Active'))
+                    Toggle::make('is_active')->label(__('Is Active'))->visible(fn () => request()->user()->type == 'admin')
                         ->required(),
                 ])->columns(4)->columnSpanFull()
             ]);

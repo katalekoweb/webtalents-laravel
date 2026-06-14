@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Override;
 use UnitEnum;
 
@@ -22,7 +23,7 @@ class TenantResource extends Resource
 {
     protected static ?string $model = Tenant::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSpeakerWave;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBellSnooze;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -82,5 +83,18 @@ class TenantResource extends Resource
             'view' => ViewTenant::route('/{record}'),
             'edit' => EditTenant::route('/{record}/edit'),
         ];
+    }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin', 'manager']);
+    }
+
+    #[Override]
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->when(request()->user()?->type != 'admin', function ($query) {
+            $query->whereId(request()->user()?->tenant_id);
+        });
     }
 }

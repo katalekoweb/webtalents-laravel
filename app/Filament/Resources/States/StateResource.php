@@ -69,4 +69,9 @@ class StateResource extends Resource
             'edit' => EditState::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin']);
+    }
 }

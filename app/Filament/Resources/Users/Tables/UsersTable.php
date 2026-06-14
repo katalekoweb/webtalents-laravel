@@ -30,8 +30,8 @@ class UsersTable
                 TextColumn::make('phone')->label(fn () => __("Phone"))->searchable(),
                 TextColumn::make('type')->label(fn () => __("Type"))->badge(),
                 TextColumn::make('email_verified_at')->label(fn () => __("Email verified at"))->dateTime()->sortable(),
-                TextColumn::make('created_at')->label(fn () => __("Created at"))->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)->label(fn () => __("Created at")),
-                TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')->label(fn () => __("Created at"))->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)->label(fn() => __("Updated at")),
             ])
             ->filters([
                 SelectFilter::make('type')->label(fn () => __("User Type"))

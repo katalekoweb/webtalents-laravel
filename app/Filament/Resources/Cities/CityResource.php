@@ -69,4 +69,9 @@ class CityResource extends Resource
             'edit' => EditCity::route('/{record}/edit'),
         ];
     }
+
+    public static function canAccess(): bool
+    {
+        return request()->user()->type == "admin";
+    }
 }

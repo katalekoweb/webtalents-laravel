@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Vacancies;
 use App\Filament\Resources\Vacancies\Pages\CreateVacancy;
 use App\Filament\Resources\Vacancies\Pages\EditVacancy;
 use App\Filament\Resources\Vacancies\Pages\ListVacancies;
+use App\Filament\Resources\Vacancies\RelationManagers\StepsRelationManager;
 use App\Filament\Resources\Vacancies\Schemas\VacancyForm;
 use App\Filament\Resources\Vacancies\Tables\VacanciesTable;
 use App\Models\Vacancy;
@@ -58,7 +59,7 @@ class VacancyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StepsRelationManager::class
         ];
     }
 
@@ -69,5 +70,10 @@ class VacancyResource extends Resource
             'create' => CreateVacancy::route('/create'),
             'edit' => EditVacancy::route('/{record}/edit'),
         ];
+    }
+
+    public static function canAccess(): bool
+    {
+        return in_array(request()->user()->type, ['admin', 'manager']);
     }
 }

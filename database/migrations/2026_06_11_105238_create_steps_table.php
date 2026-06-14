@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("title");
             $table->integer("order")->default(1);
             $table->text("decription")->nullable();
+            $table->boolean("is_current")->default(false);
             $table->boolean("is_finished")->default(false);
             $table->boolean("is_active")->default(true);
             $table->timestamps();
