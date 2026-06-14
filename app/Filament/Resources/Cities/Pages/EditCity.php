@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Cities\Pages;
 use App\Filament\Resources\Cities\CityResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 class EditCity extends EditRecord
 {
@@ -15,5 +16,11 @@ class EditCity extends EditRecord
         return [
             DeleteAction::make(),
         ];
+    }
+
+    #[Override]
+    protected function getRedirectUrl(): string
+    {
+        return parent::getResourceUrl('index');
     }
 }

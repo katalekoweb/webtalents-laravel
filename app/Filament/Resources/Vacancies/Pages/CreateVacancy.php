@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateVacancy extends CreateRecord
 {
     protected static string $resource = VacancyResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return parent::getResourceUrl('index');
+    }
 }
