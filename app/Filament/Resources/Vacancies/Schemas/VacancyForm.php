@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Vacancies\Schemas;
 use App\Models\City;
 use App\Models\Skill;
 use App\Models\Language;
+use App\Models\Doc;
 use App\Models\State;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
@@ -60,7 +61,7 @@ class VacancyForm
 
                 Section::make(__('Skills'))->collapsible()->collapsed()->schema([
                     Repeater::make('skills')->label("")->relationship("skills")->schema([
-                        Select::make("skill_id")->options(Skill::orderBy('name')->pluck('name', 'id'))->required()->label(__('Skill')),
+                        Select::make("skill_id")->disableOptionsWhenSelectedInSiblingRepeaterItems()->options(Skill::orderBy('name')->pluck('name', 'id'))->required()->label(__('Skill')),
                         TextInput::make("min_experience_years")->label(__('Min years of experience'))->numeric(),
                         Toggle::make('is_required')->label(__('Required?'))->required(),
                     ])->columns(3)->columnSpanFull()
@@ -68,10 +69,17 @@ class VacancyForm
 
                 Section::make(__('Languages'))->collapsible()->collapsed()->schema([
                     Repeater::make('languages')->label("")->relationship("languages")->schema([
-                        Select::make("language_id")->options(Language::orderBy('name')->pluck('name', 'id'))->required()->label(__('Language')),
+                        Select::make("language_id")->disableOptionsWhenSelectedInSiblingRepeaterItems()->options(Language::orderBy('name')->pluck('name', 'id'))->required()->label(__('Language')),
                         Select::make("level")->options($levels)->required()->label(__('Level')),
                         Toggle::make('is_required')->label(__('Required?'))->required(),
                     ])->columns(3)->columnSpanFull()
+                ])->columnSpanFull(),
+
+                Section::make(__('Aditional docs'))->collapsible()->collapsed()->schema([
+                    Repeater::make('docs')->label("")->relationship("docs")->schema([
+                        Select::make("doc_id")->disableOptionsWhenSelectedInSiblingRepeaterItems()->options(Doc::orderBy('name')->pluck('name', 'id'))->required()->label(__('Document')),
+                        Toggle::make('is_required')->label(__('Required?'))->required(),
+                    ])->columns(2)->columnSpanFull()
                 ])->columnSpanFull(),
 
                 Section::make(__('Age relevance'))->collapsible()->collapsed()->schema([

@@ -20,6 +20,10 @@ class Vacancy extends Model
             $model->creator_id = request()?->user()?->id;
             $model->tenant_id = request()?->user()?->tenant_id;
         });
+
+        static::addGlobalScope('tenant', function ($query) {
+            $query->whereTenantId(request()?->user()?->tenant_id);
+        });
     }
 
     public function applies () {
@@ -48,6 +52,10 @@ class Vacancy extends Model
 
     public function languages () {
         return $this->hasMany(VacancyLanguage::class);
+    }
+
+    public function docs () {
+        return $this->hasMany(VacancyDoc::class);
     }
 
 

@@ -41,6 +41,12 @@ class TenantResource extends Resource
     }
 
     #[Override]
+    public static function getNavigationLabel(): string
+    {
+        return __("Company");
+    }
+
+    #[Override]
     public static function getNavigationGroup(): string|UnitEnum|null
     {
         return __("Settings");
