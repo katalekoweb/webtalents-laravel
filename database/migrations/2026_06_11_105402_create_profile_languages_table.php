@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId("user_id")->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId("profile_id")->constrained()->cascadeOnDelete();
             $table->foreignId("language_id")->constrained()->cascadeOnDelete();
-            $table->integer("level")->default(1);
+            $table->string("level")->default("basic");
             $table->integer("order")->default(1);
             $table->boolean("is_active")->default(true);
             $table->timestamps();

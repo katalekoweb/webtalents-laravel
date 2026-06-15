@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid()->nullable();
             $table->foreignId("creator_id")->nullable()->constrained("users")->nullOnDelete()->comment("From user table");
             $table->foreignId("user_id")->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId("tenant_id")->nullable()->constrained()->cascadeOnDelete();
             $table->string("title");
             $table->text("about")->nullable();
             $table->string("photo")->nullable();

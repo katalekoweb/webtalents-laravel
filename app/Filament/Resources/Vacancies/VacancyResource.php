@@ -25,7 +25,7 @@ class VacancyResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 1;
 
     #[Override]
     public static function getModelLabel(): string
@@ -44,7 +44,6 @@ class VacancyResource extends Resource
     {
         return __("Jobs and applies");
     }
-
 
     public static function form(Schema $schema): Schema
     {
