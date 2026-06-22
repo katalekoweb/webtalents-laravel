@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string("photo")->nullable();
             $table->string("email")->nullable();
             $table->string("phone")->nullable();
+            $table->string("gender")->nullable();
+            $table->string("dob")->nullable();
             $table->string("website")->nullable();
 
             $table->foreignId("country_id")->nullable()->constrained()->nullOnDelete();
@@ -36,6 +38,7 @@ return new class extends Migration
             $table->boolean("is_human")->default(true);
 
             $table->decimal("min_salary")->default(0);
+            $table->boolean("auto_apply")->default(0);
             $table->boolean("iam_pwd")->default(false);
             $table->boolean("only_remote")->default(false);
 

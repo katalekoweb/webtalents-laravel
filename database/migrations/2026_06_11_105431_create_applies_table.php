@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text("notes");
             $table->integer("score")->default(0);
             $table->enum("final_status", ['accepted', 'cancelled', 'rejected', 'pending'])->default('pending');
+            $table->boolean("auto_applied")->default(0);
             $table->boolean("is_active")->default(true);
             $table->timestamps();
             $table->softDeletes();

@@ -31,7 +31,7 @@ class EditProfile extends EditRecord
                     $languageModel = Language::find($profile->lang);
 
                     // Ajuste aqui com base no formato real da sua tabela de idiomas (ex: 'en', 'pt', 'fr')
-                    $langCode = $languageModel ? strtolower($languageModel->sigla_ou_code ?? 'pt-BR') : 'pt-BR';
+                    $langCode = $languageModel ? strtolower($languageModel->slug ?? 'pt_BR') : 'pt_BR';
 
                     // 3. Altera o Locale da aplicação em Runtime antes de renderizar a view do DomPDF
                     App::setLocale($langCode);

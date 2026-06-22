@@ -30,7 +30,7 @@ class ProfileForm
 
         return $schema
             ->components([
-                Section::make(__('Basic Informations'))->collapsible()->schema([
+                Section::make(__('Basic Informations'))->collapsible()->collapsed()->schema([
                     FileUpload::make('photo')->imageEditor()->columnSpanFull(),
                     Select::make('user_id')->label(fn () => __('Candidate'))->required()->relationship('user', 'name', function ($query) {
                             $query->whereType('candidate');
@@ -45,8 +45,12 @@ class ProfileForm
                         ]),
                     TextInput::make('title')
                         ->required(),
-                    TextInput::make('email')->label(fn () => __('Email'))
-                        ->email(),
+                    TextInput::make('email')->label(fn () => __('Email'))->email(),
+                    Select::make('gender')->options([
+                        'male' => __('Male'),
+                        'female' => __('Female')
+                    ])->label(fn () => __('Gender')),
+                    DatePicker::make('dob')->label(fn () => __('Dob')),
                     TextInput::make('phone')->label(fn () => __('Phone')),
                     TextInput::make('whatsapp')->label(fn () => __('Whatsapp')),
                     Textarea::make('about')->columnSpanFull()->label(fn () => __('Summary')),
@@ -82,13 +86,6 @@ class ProfileForm
                     Select::make('contract_type')->label(fn () => __('Contract type'))->nullable()->options([]),
                     // Toggle::make('is_human')
                     //     ->required(),
-                    Toggle::make('available')->label(fn () => __('Currently available'))->default(1),
-                    Toggle::make('only_remote')->label(fn () => __('Only remote work')),
-                    Toggle::make('iam_pwd')->label(fn () => __('Person with deficiency')),
-                    Toggle::make('is_default')->label(fn () => __('Is default profile'))
-                        ->required(),
-                    Toggle::make('is_active')->default(1)->label(fn () => __('Is active'))
-                        ->required(),
                 ])->columns(5)->columnSpanFull(),
 
                 Section::make(__('Skills'))->collapsible()->collapsed()->schema([
@@ -127,7 +124,17 @@ class ProfileForm
                         Select::make("language_id")->required()->options(Language::pluck('name', 'id'))->label(fn () => __('Language')),
                         Select::make("level")->options($levels)->required()->label(fn () => __('Fluency Level'))
                     ])->columns(2)
-                ])->columnSpanFull()
+                ])->columnSpanFull(),
+
+                Section::make(__('Status'))->schema([
+                    Toggle::make('available')->label(fn () => __('Currently available'))->default(1),
+                    Toggle::make('auto_apply')->label(fn () => __('Auto Apply'))->default(0),
+                    Toggle::make('only_remote')->label(fn () => __('Only remote work')),
+                    Toggle::make('iam_pwd')->label(fn () => __('Person with deficiency')),
+                    Toggle::make('is_default')->label(fn () => __('Is default profile'))->required(),
+                    Toggle::make('is_active')->default(1)->label(fn () => __('Is active'))->required(),
+                ])->columns(3)->columnSpanFull()
+
             ]);
     }
 }

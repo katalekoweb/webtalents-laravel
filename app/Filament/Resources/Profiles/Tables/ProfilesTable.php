@@ -31,8 +31,9 @@ class ProfilesTable
                 TextColumn::make('country.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('whatsapp')
+                TextColumn::make('whatsapp')->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
+                IconColumn::make('auto_apply')->label(fn () => __('Auto Apply'))->boolean(),
                 IconColumn::make('is_default')
                     ->boolean(),
                 IconColumn::make('is_active')
